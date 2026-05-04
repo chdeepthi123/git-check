@@ -1,16 +1,29 @@
-name: CI Pipeline
+name: CI/CD Pipeline
 
 on:
   push:
     branches: [ main ]
 
 jobs:
-  build:
+  build-test-deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
+    - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Test
-      run: echo "CI working"
+    - name: List files
+      run: ls -la
+
+    - name: Check HTML file exists
+      run: |
+        if [ ! -f index.html ]; then
+          echo "index.html not found!"
+          exit 1
+        fi
+
+    - name: Simulate Testing
+      run: echo "Tests passed!"
+
+    - name: Simulate Deployment
+      run: echo "Deploying website..."
